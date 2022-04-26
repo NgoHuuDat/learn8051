@@ -1,0 +1,3 @@
+".\Objects\LED74HC573.obj" 
+TO ".\Objects\IC74HC573" 
+PRINT(".\Listings\IC74HC573.m51") RAMSIZE(256) 

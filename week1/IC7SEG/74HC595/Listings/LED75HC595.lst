@@ -1,0 +1,74 @@
+C51 COMPILER V9.60.0.0   LED75HC595                                                        10/31/2021 09:28:16 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED75HC595
+OBJECT MODULE PLACED IN .\Objects\LED75HC595.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\LED75HC595.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\LED75HC595.lst) TABS(2) OBJECT(.\Objects\LED75HC595.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          sbit SHCP  = P2^0;
+   4          sbit STCP  = P2^2;
+   5          sbit DATAS  = P2^1;
+   6          
+   7          char code CODE7SEG[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+   8          
+   9          void Delay_ms(unsigned int n)
+  10          {
+  11   1        unsigned int i,j;
+  12   1        for(i=0;i<n;i = i+1)
+  13   1        { for(j=0;j<123;j = j+1){}
+  14   2        }
+  15   1      }
+  16          
+  17          void PPDich74HC595(unsigned char dt)
+  18          {
+  19   1        unsigned char i, datas;
+  20   1        datas = dt;
+  21   1      
+  22   1        for (i = 0; i < 8; i++)
+  23   1        {
+  24   2          DATAS = datas & (0x80 >> i);
+  25   2          SHCP = 0;
+  26   2          SHCP = 1;
+  27   2        }
+  28   1      }
+  29          
+  30          void main(void)
+  31          {
+  32   1        unsigned char i, chuc, donvi;
+  33   1        while(1)
+  34   1        {
+  35   2          for( i = 0; i<100; i = i+1)
+  36   2          {
+  37   3            chuc = CODE7SEG[i/10];
+  38   3            donvi = CODE7SEG[i%10];
+  39   3            
+  40   3            PPDich74HC595(donvi);
+  41   3            PPDich74HC595(chuc);
+  42   3            STCP = 0;
+  43   3            STCP = 1;
+  44   3            
+  45   3            Delay_ms(500);
+  46   3          }
+  47   2        }
+  48   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    138    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.0.0   LED75HC595                                                        10/31/2021 09:28:16 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

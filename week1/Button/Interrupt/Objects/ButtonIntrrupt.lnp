@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\ButtonIntrrupt" 
+PRINT(".\Listings\ButtonIntrrupt.m51") RAMSIZE(256) 

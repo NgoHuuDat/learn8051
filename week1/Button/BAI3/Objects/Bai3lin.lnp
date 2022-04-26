@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\Bai3lin" 
+PRINT(".\Listings\Bai3lin.m51") RAMSIZE(256) 

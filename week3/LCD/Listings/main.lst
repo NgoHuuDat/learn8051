@@ -1,0 +1,116 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              11/09/2021 21:53:38 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE INCDIR(..\..\..\..\..\..\Library) DEBUG 
+                    -OBJECTEXTEND PRINT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          #include "delay.h"
+   3          #include "LCD2004.h"
+   4          #include "common.h"
+   5          
+   6          sbit UP = P3^3;
+   7          sbit DOWN = P3^4;
+   8          sbit RIGHT = P3^5;
+   9          sbit LEFT = P3^6;
+  10          sbit OK = P3^7;
+  11          
+  12          void code setup();
+  13          void code MenuDisplay(Menu* menu,unsigned char select);
+  14          
+  15          void main()
+  16          {
+  17   1        unsigned char select = 1;
+  18   1        Menu* menu;
+  19   1        menu = &MainMenu;
+  20   1        setup();  
+  21   1        
+  22   1        MenuDisplay(menu,select);
+  23   1        while(1)
+  24   1        {
+  25   2          if(DOWN == 0)
+  26   2          {
+  27   3            while(!DOWN);
+  28   3            LCD_String_xy(select,0," ");
+  29   3            if(menu == &MainMenu)
+  30   3              select = (select == 3)?1:select+1;
+  31   3            else
+  32   3              select = (select == 3)?0:select+1;
+  33   3            LCD_String_xy(select,0,">");
+  34   3            
+  35   3            
+  36   3          }
+  37   2          
+  38   2          if(UP == 0)
+  39   2          {
+  40   3            while(!UP);
+  41   3            LCD_String_xy(select ,0," ");
+  42   3            if(menu == &MainMenu)
+  43   3              select = (select == 1)?3:select-1;
+  44   3            else
+  45   3              select = (select == 0)?3:select-1;
+  46   3            LCD_String_xy(select,0,">");
+  47   3            
+  48   3          }
+  49   2          
+  50   2          if(RIGHT == 0)
+  51   2          {
+  52   3            while(!RIGHT);
+  53   3            switch(select)
+  54   3            {
+C51 COMPILER V9.60.0.0   MAIN                                                              11/09/2021 21:53:38 PAGE 2   
+
+  55   4              case 0: menu = (menu->Menulist0 ==NULL)?menu:menu->Menulist0; break;
+  56   4              case 1: menu = (menu->Menulist1 ==NULL)?menu:menu->Menulist1; break;
+  57   4              case 2: menu = (menu->Menulist2 ==NULL)?menu:menu->Menulist2; break;
+  58   4              case 3: menu = (menu->Menulist3 ==NULL)?menu:menu->Menulist3; break;
+  59   4            }
+  60   3            select = 1;
+  61   3            MenuDisplay(menu,select);
+  62   3          }
+  63   2          if(LEFT == 0)
+  64   2          {
+  65   3            while(!LEFT);
+  66   3            menu = menu->pre;
+  67   3            MenuDisplay(menu,select);
+  68   3          }
+  69   2          
+  70   2        }
+  71   1      }
+  72          
+  73          void code setup()
+  74          {
+  75   1        LCD_Init();
+  76   1        UP = 1;
+  77   1        DOWN = 1;
+  78   1        RIGHT = 1;
+  79   1        LEFT = 1;
+  80   1        OK = 1;
+  81   1      }
+  82          void code MenuDisplay(Menu* menu,unsigned char select)
+  83          {
+  84   1        LCD_String_xy(0,0,menu->Tile);
+  85   1        LCD_String_xy(1,0,menu->list1);
+  86   1        LCD_String_xy(2,0,menu->list2);
+  87   1        LCD_String_xy(3,0,menu->list3);
+  88   1        LCD_String_xy(select,0,">");
+  89   1      }
+  90          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    581    ----
+   CONSTANT SIZE    =    574    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       6
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

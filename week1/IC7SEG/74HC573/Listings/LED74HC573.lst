@@ -1,0 +1,74 @@
+C51 COMPILER V9.60.0.0   LED74HC573                                                        10/31/2021 09:27:11 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED74HC573
+OBJECT MODULE PLACED IN .\Objects\LED74HC573.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\LED74HC573.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\LED74HC573.lst) TABS(2) OBJECT(.\Objects\LED74HC573.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          #define LEDQ P3
+   4          
+   5          sbit LE1 = P2^0;
+   6          sbit LE2 = P2^1;
+   7          
+   8          char code CODE7SEG[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+   9          
+  10          void Delay_ms(unsigned int n)
+  11          {
+  12   1        unsigned int i,j;
+  13   1        for(i=0;i<n;i = i+1)
+  14   1        { for(j=0;j<123;j = j+1){}
+  15   2        }
+  16   1      }
+  17          
+  18          void PPDich74HC573()
+  19          {
+  20   1        unsigned int i, c, d;
+  21   1        P2_0 = 0;
+  22   1        P2_1 = 0;
+  23   1        for(i = 0; i < 100; i = i+1)
+  24   1          {
+  25   2            if( i % 10 == 0)
+  26   2            {
+  27   3              c = i / 10;
+  28   3              LEDQ = CODE7SEG[c];
+  29   3              LE1 = 1;
+  30   3              LE1 = 0;
+  31   3            }
+  32   2            
+  33   2            d = i%10;
+  34   2            LEDQ = CODE7SEG[d];
+  35   2            LE2 = 1;
+  36   2            LE2 = 0;
+  37   2            Delay_ms(500);
+  38   2          }
+  39   1      }
+  40          
+  41          void main(void)
+  42          {
+  43   1      
+  44   1        while(1)
+  45   1        {
+  46   2          PPDich74HC573();
+  47   2        }
+  48   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    142    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+C51 COMPILER V9.60.0.0   LED74HC573                                                        10/31/2021 09:27:11 PAGE 2   
+
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       4
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

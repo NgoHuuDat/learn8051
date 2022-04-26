@@ -1,0 +1,72 @@
+C51 COMPILER V9.60.0.0   LED7SEGQUET                                                       10/31/2021 09:24:46 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE LED7SEGQUET
+OBJECT MODULE PLACED IN .\Objects\LED7SEGQuet.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE ..\LED7SEGQuet.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Lis
+                    -tings\LED7SEGQuet.lst) TABS(2) OBJECT(.\Objects\LED7SEGQuet.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          #define LEDQ P3
+   4          
+   5          sbit CTRL1 = P2^0;
+   6          sbit CTRL2 = P2^1;
+   7          
+   8          char code CODE7SEG[] = {0xC0,0xF9,0xA4,0xB0,0x99,0x92,0x82,0xF8,0x80,0x90};
+   9          
+  10          void Delay_ms(unsigned int n)
+  11          {
+  12   1        unsigned int i,j;
+  13   1        for(i=0;i<n;i = i+1)
+  14   1        { for(j=0;j<123;j = j+1){}
+  15   2        }
+  16   1      }
+  17          
+  18          void PPQuet()
+  19          {
+  20   1        unsigned int i,j, c, d;
+  21   1        for(i = 0; i < 100; i = i+1)
+  22   1          {
+  23   2            for(j = 0; j < 10; j = j+1)
+  24   2            {
+  25   3              c = i / 10;
+  26   3              LEDQ = CODE7SEG[c];
+  27   3              CTRL1 = 1;
+  28   3              Delay_ms(25);
+  29   3              CTRL1 = 0;
+  30   3              
+  31   3              d = i%10;
+  32   3              LEDQ = CODE7SEG[d];
+  33   3              CTRL2 = 1;
+  34   3              Delay_ms(25);
+  35   3              CTRL2 = 0;
+  36   3            }
+  37   2          }
+  38   1      }
+  39          
+  40          void main(void)
+  41          {
+  42   1        while(1)
+  43   1        {
+  44   2          PPQuet();
+  45   2        }
+  46   1      } 
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    164    ----
+   CONSTANT SIZE    =     10    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       8
+C51 COMPILER V9.60.0.0   LED7SEGQUET                                                       10/31/2021 09:24:46 PAGE 2   
+
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

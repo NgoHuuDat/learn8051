@@ -1,0 +1,129 @@
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                    10/31/2021  09:28:16  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\LED75HC595.obj TO .\Objects\IC74HC595 PRINT (.\Listings\IC74HC595.m51) RAMSIZE (25
+>> 6)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\LED75HC595.obj (LED75HC595)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\IC74HC595 (LED75HC595)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            DATA    0008H     0002H     UNIT         _DATA_GROUP_
+            IDATA   000AH     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0038H     UNIT         ?PR?MAIN?LED75HC595
+            CODE    003BH     0032H     UNIT         ?PR?_PPDICH74HC595?LED75HC595
+            CODE    006DH     0020H     UNIT         ?PR?_DELAY_MS?LED75HC595
+            CODE    008DH     000CH     UNIT         ?C_C51STARTUP
+            CODE    0099H     000AH     UNIT         ?CO?LED75HC595
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\IC74HC595 (LED75HC595)
+
+
+SEGMENT                                 DATA_GROUP 
+  +--> CALLED SEGMENT                 START    LENGTH
+-----------------------------------------------------
+?C_C51STARTUP                         -----    -----
+  +--> ?PR?MAIN?LED75HC595
+
+?PR?MAIN?LED75HC595                   0008H    0002H
+  +--> ?CO?LED75HC595
+  +--> ?PR?_PPDICH74HC595?LED75HC595
+  +--> ?PR?_DELAY_MS?LED75HC595
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\IC74HC595 (LED75HC595)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        LED75HC595
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:00A0H         PUBLIC        P2
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  10/31/2021  09:28:16  PAGE 2
+
+
+  C:0003H         PUBLIC        main
+  B:00A0H.0       PUBLIC        SHCP
+  C:006DH         PUBLIC        _Delay_ms
+  C:0099H         PUBLIC        CODE7SEG
+  C:003BH         PUBLIC        _PPDich74HC595
+  B:00A0H.2       PUBLIC        STCP
+  B:00A0H.1       PUBLIC        DATAS
+  -------         PROC          _DELAY_MS
+  D:0006H         SYMBOL        n
+  -------         DO            
+  D:0004H         SYMBOL        i
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:006DH         LINE#         9
+  C:006DH         LINE#         10
+  C:006DH         LINE#         12
+  C:0077H         LINE#         13
+  C:0085H         LINE#         14
+  C:008CH         LINE#         15
+  -------         ENDPROC       _DELAY_MS
+  -------         PROC          _PPDICH74HC595
+  D:0007H         SYMBOL        dt
+  -------         DO            
+  D:0003H         SYMBOL        i
+  D:0005H         SYMBOL        datas
+  -------         ENDDO         
+  C:003BH         LINE#         17
+  C:003BH         LINE#         18
+  C:003BH         LINE#         20
+  C:003DH         LINE#         22
+  C:0049H         LINE#         23
+  C:0049H         LINE#         24
+  C:0065H         LINE#         25
+  C:0067H         LINE#         26
+  C:0069H         LINE#         27
+  C:006CH         LINE#         28
+  -------         ENDPROC       _PPDICH74HC595
+  -------         PROC          MAIN
+  -------         DO            
+  D:0001H         SYMBOL        i
+  D:0008H         SYMBOL        chuc
+  D:0009H         SYMBOL        donvi
+  -------         ENDDO         
+  C:0003H         LINE#         30
+  C:0003H         LINE#         31
+  C:0003H         LINE#         33
+  C:0003H         LINE#         34
+  C:0003H         LINE#         35
+  C:000FH         LINE#         36
+  C:000FH         LINE#         37
+  C:001AH         LINE#         38
+  C:0024H         LINE#         40
+  C:0028H         LINE#         41
+  C:002DH         LINE#         42
+  C:002FH         LINE#         43
+  C:0031H         LINE#         45
+  C:0038H         LINE#         46
+BL51 BANKED LINKER/LOCATER V6.22.2.0                                                  10/31/2021  09:28:16  PAGE 3
+
+
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        LED75HC595
+
+Program Size: data=11.0 xdata=0 code=163
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

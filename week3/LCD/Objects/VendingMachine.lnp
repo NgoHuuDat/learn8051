@@ -1,0 +1,5 @@
+".\Objects\main.obj",
+".\Objects\LCD2004.obj",
+".\Objects\delay.obj" 
+TO ".\Objects\VendingMachine" 
+PRINT(".\Listings\VendingMachine.m51") RAMSIZE(256) 

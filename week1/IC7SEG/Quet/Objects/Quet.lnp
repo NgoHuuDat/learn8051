@@ -1,0 +1,3 @@
+".\Objects\LED7SEGQuet.obj" 
+TO ".\Objects\Quet" 
+PRINT(".\Listings\Quet.m51") RAMSIZE(256) 

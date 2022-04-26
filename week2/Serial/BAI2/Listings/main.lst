@@ -1,0 +1,115 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              11/07/2021 16:06:15 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          sbit LED = P2^0;
+   4          sbit BTN = P2^4;
+   5          
+   6          unsigned char revData = ' ';
+   7          
+   8          void setup();
+   9          void serialSend(unsigned char c);
+  10          void Delay_ms(unsigned char time);
+  11          
+  12          void main()
+  13          {
+  14   1        unsigned char sendData, count,countt;
+  15   1        setup();
+  16   1        sendData = 'A';
+  17   1        count = 0;
+  18   1        countt=0;
+  19   1        while(1)
+  20   1        {
+  21   2          if(BTN == 0)
+  22   2          {
+  23   3            while(!BTN);
+  24   3            serialSend(sendData);
+  25   3          }
+  26   2          
+  27   2          if(revData == 'A')
+  28   2          { 
+  29   3            Delay_ms(10);
+  30   3            countt++;
+  31   3            if(countt >=26)
+  32   3            {
+  33   4              if(count%2 == 0)
+  34   4                LED = 0;
+  35   4              else
+  36   4                LED = 1;
+  37   4              count++;
+  38   4              if(count == 10)
+  39   4              { 
+  40   5                count = 0;
+  41   5                revData = 'B';
+  42   5              }
+  43   4              countt = 0;
+  44   4            }     
+  45   3          }
+  46   2      
+  47   2        }
+  48   1      }
+  49          
+  50          void setup()
+  51          {
+  52   1        SCON = 0x50;
+  53   1        EA = 1;
+  54   1        ES = 1;
+C51 COMPILER V9.60.0.0   MAIN                                                              11/07/2021 16:06:15 PAGE 2   
+
+  55   1        
+  56   1        TMOD = 0x20;
+  57   1        TH1 = 0xFD;
+  58   1        TR1 = 1;
+  59   1        
+  60   1        BTN = 1;
+  61   1        LED = 1;
+  62   1      }
+  63          void serialSend(unsigned char c)
+  64          {
+  65   1        SBUF = c;
+  66   1        while(!TI);
+  67   1        TI = 0;
+  68   1        if(RI ==1)
+  69   1          RI = 0;
+  70   1      }
+  71          void serial_ISR() interrupt 4
+  72          {
+  73   1        if(RI == 1)
+  74   1        {
+  75   2          revData = SBUF;
+  76   2          RI = 0;
+  77   2        }
+  78   1        if(TI ==1)
+  79   1          TI = 0;
+  80   1      }
+  81          
+  82          void Delay_ms(unsigned char time)
+  83          {
+  84   1        unsigned char i;
+  85   1        while(time--)
+  86   1        {
+  87   2          for(i = 0; i<123;i++){}
+  88   2        }
+  89   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    144    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       3
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\HU7SEG" 
+PRINT(".\Listings\HU7SEG.m51") RAMSIZE(256) 

@@ -1,0 +1,3 @@
+".\Objects\main.obj" 
+TO ".\Objects\HULed" 
+PRINT(".\Listings\HULed.m51") RAMSIZE(256) 

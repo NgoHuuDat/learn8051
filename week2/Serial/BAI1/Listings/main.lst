@@ -1,0 +1,90 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              11/07/2021 16:11:47 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          sbit LED = P2^0;
+   4          sbit BTN = P2^1;
+   5          
+   6          
+   7          char revData = ' ';
+   8          
+   9          void setup();
+  10          void serialSend(char c);
+  11          
+  12          void main()
+  13          {
+  14   1        char sendData = 'A';
+  15   1        setup();
+  16   1        while(1)
+  17   1        {
+  18   2          if(BTN == 0)
+  19   2          {
+  20   3            while(!BTN);
+  21   3            serialSend(sendData);
+  22   3            sendData++; 
+  23   3          }
+  24   2          
+  25   2          if(revData == '1')
+  26   2            LED = 0;
+  27   2          else
+  28   2            LED = 1;
+  29   2        }
+  30   1      }
+  31          
+  32          void setup()
+  33          {
+  34   1        SCON = 0x50;
+  35   1        TMOD = 0x20;
+  36   1        TH1 = 0xFD;
+  37   1        TR1 = 1;
+  38   1        
+  39   1        EA = 1;
+  40   1        ES = 1;
+  41   1        
+  42   1        BTN = 1;
+  43   1        LED = 1;
+  44   1      }
+  45          
+  46          void serial_ISR() interrupt 4
+  47          {
+  48   1        if(RI==1)
+  49   1        {
+  50   2          revData = SBUF;
+  51   2          RI = 0;
+  52   2        } 
+  53   1        if(TI == 1)
+  54   1          TI = 0;
+C51 COMPILER V9.60.0.0   MAIN                                                              11/07/2021 16:11:47 PAGE 2   
+
+  55   1      }
+  56          
+  57          void serialSend(char c)
+  58          {
+  59   1        SBUF = c;
+  60   1        while(!TI)
+  61   1        TI = 0; 
+  62   1        if(RI == 1)
+  63   1          RI = 0;
+  64   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     81    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      1       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

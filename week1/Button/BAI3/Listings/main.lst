@@ -1,0 +1,92 @@
+C51 COMPILER V9.60.0.0   MAIN                                                              11/01/2021 14:06:08 PAGE 1   
+
+
+C51 COMPILER V9.60.0.0, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\main
+                    -.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          
+   3          #define LED7SEG P0
+   4          sbit LED1 = P2^0;
+   5          sbit LED2 = P2^3;
+   6          sbit LED3 = P2^6;
+   7          
+   8          sbit BTN1 = P3^0;
+   9          sbit BTN2 = P3^1;
+  10          sbit BTN3 = P3^2;
+  11          
+  12          unsigned char code CODE7SEG[] = {0xC0, 0xF9};
+  13          
+  14          void setup()
+  15          {
+  16   1        LED1 = 1;
+  17   1        LED2 = 1;
+  18   1        LED3 = 1;
+  19   1        
+  20   1        EA = 1;
+  21   1        EX0 = 1;
+  22   1        IT0 = 1;
+  23   1      }
+  24          
+  25          void xulyLed1()
+  26          {
+  27   1        if(BTN1 == 0)
+  28   1          {
+  29   2            LED1 = ~LED1;
+  30   2            while(!BTN1);
+  31   2          }
+  32   1      }
+  33          
+  34          void xulyLed2()
+  35          {
+  36   1        if(BTN2 == 0)
+  37   1          {
+  38   2            LED2 = ~LED2;
+  39   2            while(!BTN2);
+  40   2          }
+  41   1      }
+  42          
+  43          void xulyLed3() interrupt 0
+  44          {
+  45   1        if(BTN3 == 0)
+  46   1        {
+  47   2          LED3 = ~LED3;
+  48   2          while(!BTN3);
+  49   2        }
+  50   1      }
+  51          
+  52          void xulyLED7SEG()
+  53          {
+  54   1        LED7SEG = CODE7SEG[~LED1];
+C51 COMPILER V9.60.0.0   MAIN                                                              11/01/2021 14:06:08 PAGE 2   
+
+  55   1      }
+  56          
+  57          void main()
+  58          {
+  59   1        setup();
+  60   1        while(1)
+  61   1        {
+  62   2          xulyLed1();
+  63   2          xulyLed2();
+  64   2          xulyLED7SEG();
+  65   2        }
+  66   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     74    ----
+   CONSTANT SIZE    =      2    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
